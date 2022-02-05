@@ -18,6 +18,16 @@ h3{
     align-items: center;
 }
 
+.letter.green {
+    background-color: rgb(131, 194, 37);
+}
+.letter.yellow {
+    background-color: rgb(189, 189, 33);
+}
+.letter.black {
+    background-color: #444444;
+}
+
 .letter.special {
     width: 12vw;
 }
@@ -40,7 +50,7 @@ h3{
 .keyboard {
     display: flex;
     flex-direction: column;
-    height: 33vh;
+    height: 30vh;
     bottom: 0;
     justify-content: flex-end;
 }

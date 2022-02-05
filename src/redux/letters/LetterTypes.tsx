@@ -1,0 +1,6 @@
+export const ADD_GREEN = "ADD_GREEN"
+export const ADD_YELLOW = "ADD_YELLOW"
+export const ADD_GREY = "ADD_GREY"
+export const RESET_GREEN = "RESET_GREEN"
+export const RESET_YELLOW = "RESET_YELLOW"
+export const RESET_GRAY = "RESET_GRAY"
