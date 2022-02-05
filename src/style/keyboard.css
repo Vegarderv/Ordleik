@@ -1,0 +1,46 @@
+h3{
+    size: 5vh;
+    color: aliceblue;
+}
+
+.letter {
+    border: 1px solid gray;
+    border-radius: 15%;
+    width: 5vw;
+    max-width: 28px;
+    height: 8vh;
+    max-width: 46px;
+
+    padding: 2px;
+    margin: 4px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.letter.special {
+    width: 12vw;
+}
+
+.letter-light {
+    background-color: #888888;
+}
+
+.letter-dark {
+    background-color: #444444;
+}
+
+.keyboard-row {
+    display: flex;
+    flex-direction: row;
+    align-content: center;
+    justify-content: center;
+}
+
+.keyboard {
+    display: flex;
+    flex-direction: column;
+    height: 33vh;
+    bottom: 0;
+    justify-content: flex-end;
+}
