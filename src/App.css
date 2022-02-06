@@ -1,11 +1,16 @@
 .top-bar {
-  justify-content: center;
+  justify-content: space-around;
   align-items: center;
   height: 6vh;
   display: flex;
+  flex-direction: row;
   width: 100vw;
   max-width: 500px;
   border-bottom: 1px solid gray;
+}
+
+.stats{
+  float: right;
 }
 
 .fake{
