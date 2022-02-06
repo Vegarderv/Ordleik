@@ -29,11 +29,11 @@ const LetterBox = (props: LetterBoxProps) => {
             setLetter("");
         }
     } else if (state_row > props.row && finished === "") {
-        if (right_word.charAt(props.col) === letter.toUpperCase()){
+        if (right_word.charAt(props.col) === letter.toLowerCase()){
             setFinished("green");
             dispatch(addGreenLetter(letter))
         }
-        else if (right_word.includes(letter.toUpperCase())) {
+        else if (right_word.includes(letter.toLowerCase())) {
             setFinished("yellow")
             dispatch(addYellowLetter(letter))
         }

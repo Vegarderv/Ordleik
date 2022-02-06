@@ -1,5 +1,5 @@
 import React from "react";
-import songlist from "./resources/5_bokstaver.json";
+import songlist from "./resources/5_bokstaver_gjett.json";
 
 // note this will be async
 function getRandomLine(): string {
