@@ -8,7 +8,11 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-color: #222222;
+  background-color: #222222 !important;
+}
+body, html {
+  width: 100%;
+  margin: 0;
 }
 
 code {

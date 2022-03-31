@@ -4,6 +4,7 @@ import { newWord } from "../redux/word/wordAction";
 import getRandomLine from "../utils/wordchooser";
 import * as Icon from "react-bootstrap-icons";
 import { Modal } from "react-bootstrap";
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 const TopBar = () => {
   const dispatch = useDispatch();
