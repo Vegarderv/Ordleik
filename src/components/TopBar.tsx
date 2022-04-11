@@ -5,15 +5,12 @@ import getRandomLine from "../utils/wordchooser";
 import * as Icon from "react-bootstrap-icons";
 import { Modal } from "react-bootstrap";
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { setHidden } from "../redux/statistics/statAction";
 
 const TopBar = () => {
   const dispatch = useDispatch();
 
   dispatch(newWord(getRandomLine()));
-  const [show, setShow] = useState(false);
-
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
   return (
     <>
       <div className="top-bar">
@@ -22,18 +19,7 @@ const TopBar = () => {
           <h2>ORDLEIK</h2>
         </div>
         <div>
-          <Icon.BarChart className="stats" onClick={() => {handleShow()}}></Icon.BarChart>
-          <Modal show={show} onHide={handleClose}>
-            <Modal.Header closeButton>
-              <Modal.Title>Modal heading</Modal.Title>
-            </Modal.Header>
-            <Modal.Body>
-              Woohoo, you're reading this text in a modal!
-            </Modal.Body>
-            <Modal.Footer>
-       
-            </Modal.Footer>
-          </Modal>
+          <Icon.BarChart className="stats" color="whiteSmoke" onClick={() => {dispatch(setHidden(""))}}></Icon.BarChart>
         </div>
       </div>
     </>
