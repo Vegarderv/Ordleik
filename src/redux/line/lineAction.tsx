@@ -4,6 +4,10 @@ import {
   DECREMENT_COL,
   RESET_ROW,
   RESET_COL,
+  ADD_LETTER,
+  SET_FINISHED,
+  NEW_WORD,
+  REMOVE_LETTER,
 } from "./lineTypes";
 
 export interface action {
@@ -39,6 +43,34 @@ export const resetRow = () => {
 export const resetCol = () => {
   return {
     type: RESET_COL,
+    payload: "",
+  };
+};
+
+export const addLetter = (letter: string) => {
+  return {
+    type: ADD_LETTER,
+    payload: letter,
+  };
+};
+
+export const newWord = (word: string) => {
+  return {
+    type: NEW_WORD,
+    payload: word,
+  };
+};
+
+export const setFinished = (word: string) => {
+  return {
+    type: SET_FINISHED,
+    payload: word,
+  };
+};
+
+export const removeLetter = () => {
+  return {
+    type: REMOVE_LETTER,
     payload: "",
   };
 };

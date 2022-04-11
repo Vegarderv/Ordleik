@@ -4,7 +4,7 @@ import {
 import { action } from "./statAction";
 
 const initialState = {
-  hidden: "",
+  hidden: "hidden",
 };
 
 const statReducer = (state = initialState, action: action) => {

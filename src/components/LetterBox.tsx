@@ -12,47 +12,38 @@ import "../style/guess.css";
 type LetterBoxProps = {
   col: number;
   row: number;
+  letter: string;
+  color: string;
 };
 
 const LetterBox = (props: LetterBoxProps) => {
 
   const dispatch = useDispatch();
   const [finished, setFinished] = useState("");
-  const [letter, setLetter] = useState("");
-  const lttr = useSelector((state: RootState) => state.word.suggestion);
+  const lttr = useSelector((state: RootState) => state.line.suggestion[props.row]);
   const state_colon = useSelector((state: RootState) => state.line.col);
   const state_row = useSelector((state: RootState) => state.line.row);
-  const right_word = useSelector((state: RootState) => state.word.word);
+  const right_word = useSelector((state: RootState) => state.line.word);
 
   useEffect(() => {
-    if (state_colon - 1 === props.col && state_row === props.row) {
-      if (letter === "") {
-        setLetter(lttr.charAt(props.col));
-      }
-    } else if (state_colon === props.col && state_row === props.row) {
-      if (letter !== "") {
-        console.log(letter);
-        setLetter("");
-      }
-    } else if (state_row > props.row && finished === "") {
-      if (right_word.charAt(props.col) === letter.toLowerCase()) {
+    if (state_row > props.row && finished === "" && props.color !== "") {
+      if (props.color === "green") {
         setFinished("green");
-        dispatch(addGreenLetter(letter));
-      } else if (right_word.includes(letter.toLowerCase())) {
-        console.log(letter.toLowerCase());
+        dispatch(addGreenLetter(props.letter));
+      } else if (props.color === "yellow") {
         setFinished("yellow");
-        dispatch(addYellowLetter(letter));
+        dispatch(addYellowLetter(props.letter));
       } else {
         setFinished("gray");
-        dispatch(addGreyLetter(letter));
+        dispatch(addGreyLetter(props.letter));
       }
     }
-  }, [state_colon, props.col, props.row, state_row, finished, letter, lttr, right_word, dispatch]);
+  }, [state_colon, props.col, props.row, state_row, finished, props.letter, lttr, right_word, dispatch]);
 
   return (
     <>
       <div className={"letter-box " + finished}>
-        <h3>{letter}</h3>
+        <h3>{props.letter}</h3>
       </div>
     </>
   );

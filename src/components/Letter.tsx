@@ -4,17 +4,14 @@ import { useState } from "react";
 import { OverlayTrigger, Tooltip } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import {
+  addLetter,
   DecrementCol,
   incrementCol,
   incrementRow,
+  removeLetter,
   resetCol,
 } from "../redux/line/lineAction";
 import { RootState } from "../redux/rootReducer";
-import {
-  addLetter,
-  removeLetter,
-  resetSuggestion,
-} from "../redux/word/wordAction";
 import "../style/keyboard.css";
 import wordList from "../utils/resources/5_bokstaver.json";
 
@@ -25,10 +22,16 @@ type letterProps = {
 const Letter = (props: letterProps) => {
   const dispatch = useDispatch();
   const col = useSelector((state: RootState) => state.line.col);
-  const suggested = useSelector((state: RootState) => state.word.suggestion);
+  const row = useSelector((state: RootState) => state.line.row);
+  const hidden = useSelector((state: RootState) => state.stat.hidden);
+  const suggested = useSelector(
+    (state: RootState) => state.line.suggestion[row]
+  );
   const greenLetters = useSelector((state: RootState) => state.letter.green);
   const yellowLetters = useSelector((state: RootState) => state.letter.yellow);
   const grayLetters = useSelector((state: RootState) => state.letter.gray);
+
+  const correct =useSelector((state: RootState) => state.line.correct);
 
   const [theme, setTheme] = useState("light");
   const [tooltip, setTooltip] = useState(false);
@@ -49,12 +52,10 @@ const Letter = (props: letterProps) => {
       dispatch(DecrementCol());
     } else if (props.letter === "Enter" && col === 5) {
       if (wordList.includes(suggested.toUpperCase())) {
-        console.log(suggested)
-        dispatch(resetSuggestion());
         setTimeout(() => {
           // Delay this action by one second
           dispatch(resetCol());
-        }, 0)
+        }, 0);
         dispatch(incrementRow());
       } else {
         setTooltip(true);
@@ -63,11 +64,14 @@ const Letter = (props: letterProps) => {
   };
 
   const handleKeyboardInput = (event: any) => {
-    console.log(event.key)
-    if (event.key === props.letter || event.key === props.letter.toLowerCase() || (event.key === "Backspace" && props.letter === "⌫")) {
+    if (
+      event.key === props.letter ||
+      event.key === props.letter.toLowerCase() ||
+      (event.key === "Backspace" && props.letter === "⌫")
+    ) {
       writeLetter();
-    };
-  }
+    }
+  };
 
   if (props.letter === "Enter" && col < 5) {
     if (tooltip) {
@@ -76,10 +80,12 @@ const Letter = (props: letterProps) => {
   }
 
   useEffect(() => {
-    document.addEventListener("keyup", handleKeyboardInput, false);
+    if (hidden === "hidden" && !correct) {
+      document.addEventListener("keyup", handleKeyboardInput, false);
 
-    return () => {
-      document.removeEventListener("keyup", handleKeyboardInput, false);
+      return () => {
+        document.removeEventListener("keyup", handleKeyboardInput, false);
+      };
     }
   });
 

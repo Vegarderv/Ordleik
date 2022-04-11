@@ -3,3 +3,7 @@ export const INCREMENT_COL = "INCREMENT_COL";
 export const DECREMENT_COL = "DECREMENT_COL";
 export const RESET_COL = "RESET_COL";
 export const RESET_ROW = "RESET_ROW";
+export const ADD_LETTER = "ADD_WORD";
+export const NEW_WORD = "NEW_WORD";
+export const SET_FINISHED = "SET_FINISHED";
+export const REMOVE_LETTER = "REMOVE_LETTER";
