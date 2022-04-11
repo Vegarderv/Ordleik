@@ -31,7 +31,7 @@ const Letter = (props: letterProps) => {
   const yellowLetters = useSelector((state: RootState) => state.letter.yellow);
   const grayLetters = useSelector((state: RootState) => state.letter.gray);
 
-  const correct =useSelector((state: RootState) => state.line.correct);
+  const correct = useSelector((state: RootState) => state.line.correct);
 
   const [theme, setTheme] = useState("light");
   const [tooltip, setTooltip] = useState(false);
@@ -44,21 +44,23 @@ const Letter = (props: letterProps) => {
     props.letter === "⌫" || props.letter === "Enter" ? " special" : "";
 
   const writeLetter = () => {
-    if (special === "") {
-      dispatch(addLetter(props.letter));
-      dispatch(incrementCol());
-    } else if (props.letter === "⌫") {
-      dispatch(removeLetter());
-      dispatch(DecrementCol());
-    } else if (props.letter === "Enter" && col === 5) {
-      if (wordList.includes(suggested.toUpperCase())) {
-        setTimeout(() => {
-          // Delay this action by one second
-          dispatch(resetCol());
-        }, 0);
-        dispatch(incrementRow());
-      } else {
-        setTooltip(true);
+    if (!correct) {
+      if (special === "") {
+        dispatch(addLetter(props.letter));
+        dispatch(incrementCol());
+      } else if (props.letter === "⌫") {
+        dispatch(removeLetter());
+        dispatch(DecrementCol());
+      } else if (props.letter === "Enter" && col === 5) {
+        if (wordList.includes(suggested.toUpperCase())) {
+          setTimeout(() => {
+            // Delay this action by one second
+            dispatch(resetCol());
+          }, 0);
+          dispatch(incrementRow());
+        } else {
+          setTooltip(true);
+        }
       }
     }
   };
