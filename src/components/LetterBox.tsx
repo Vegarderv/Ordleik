@@ -15,9 +15,6 @@ type LetterBoxProps = {
 };
 
 const LetterBox = (props: LetterBoxProps) => {
-  function minFunksjon(a: String) {
-    return a;
-  }
 
   const dispatch = useDispatch();
   const [finished, setFinished] = useState("");
@@ -50,7 +47,7 @@ const LetterBox = (props: LetterBoxProps) => {
         dispatch(addGreyLetter(letter));
       }
     }
-  });
+  }, [state_colon, props.col, props.row, state_row, finished, letter, lttr, right_word, dispatch]);
 
   return (
     <>

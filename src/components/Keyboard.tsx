@@ -5,7 +5,7 @@ import "../style/keyboard.css";
 const Keyboard = () => {
   return (
     <>
-      <div className="keyboard">
+ <div className="keyboard">
         <KeyboardRow
           letters={["Q", "W", "E", "R", "T", "Y", "U", "I", "O", "P", "Å"]}
         ></KeyboardRow>
