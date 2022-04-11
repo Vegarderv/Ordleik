@@ -1,5 +1,5 @@
 import React from "react";
-import { Keyboard } from "react-bootstrap-icons";
+import Keyboard from "./Keyboard";
 import Guess from "./Guess";
 import TopBar from "./TopBar";
 
