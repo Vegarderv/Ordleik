@@ -6,7 +6,7 @@ function getRandomLine(): string {
   const bigPrime = 872604219834575166909558254717;
   const numOfWords = songlist.length;
 
-  const day = 1000 * 60 * 60 * 25;
+  const day = 1000 * 60 * 60 * 24;
 
   // Divide Time with a year
   const d = new Date();

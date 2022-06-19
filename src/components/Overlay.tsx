@@ -73,6 +73,8 @@ const Overlay = () => {
           ticks: {
             color: "whitesmoke",
             autoSkip: false,
+            callback: function (value: any) { if (Number.isInteger(value)) { return value; } },
+            stepSize: 1
           },
         },
         y: {
@@ -81,7 +83,7 @@ const Overlay = () => {
           },
           ticks: {
             color: "whitesmoke",
-            autoSkip: false
+            autoSkip: false,
           },
         },
       },
