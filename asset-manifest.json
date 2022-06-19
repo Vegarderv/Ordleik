@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/Ordleik/static/css/main.9a21863d.css",
-    "main.js": "/Ordleik/static/js/main.b42b0b68.js",
+    "main.js": "/Ordleik/static/js/main.581a0a4b.js",
     "static/js/787.c7317723.chunk.js": "/Ordleik/static/js/787.c7317723.chunk.js",
     "index.html": "/Ordleik/index.html",
     "main.9a21863d.css.map": "/Ordleik/static/css/main.9a21863d.css.map",
-    "main.b42b0b68.js.map": "/Ordleik/static/js/main.b42b0b68.js.map",
+    "main.581a0a4b.js.map": "/Ordleik/static/js/main.581a0a4b.js.map",
     "787.c7317723.chunk.js.map": "/Ordleik/static/js/787.c7317723.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.9a21863d.css",
-    "static/js/main.b42b0b68.js"
+    "static/js/main.581a0a4b.js"
   ]
 }
