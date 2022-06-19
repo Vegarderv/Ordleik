@@ -62,6 +62,8 @@ const Overlay = () => {
     };
   
     const options = {
+      responsive: true,
+      maintainAspectRatio: true,
       indexAxis: "y" as const,
       scales: {
         x: {
@@ -70,6 +72,7 @@ const Overlay = () => {
           },
           ticks: {
             color: "whitesmoke",
+            autoSkip: false,
           },
         },
         y: {
@@ -78,6 +81,7 @@ const Overlay = () => {
           },
           ticks: {
             color: "whitesmoke",
+            autoSkip: false
           },
         },
       },
@@ -146,7 +150,7 @@ const Overlay = () => {
           <div className="stat-text">
             <h5>Distrubisjon av gjett</h5>
           </div>
-          <Bar data={data} options={options} />
+          <Bar data={data} options={options} className="chart" />
         </div>
         <div className="behind-overlay" />
       </div>
