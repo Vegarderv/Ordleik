@@ -7,3 +7,4 @@ export const ADD_LETTER = "ADD_WORD";
 export const NEW_WORD = "NEW_WORD";
 export const SET_FINISHED = "SET_FINISHED";
 export const REMOVE_LETTER = "REMOVE_LETTER";
+export const SET_SUGGESTIONS = "SET_SUGGESTIONS"

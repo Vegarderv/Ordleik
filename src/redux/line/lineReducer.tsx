@@ -7,7 +7,8 @@ import {
   ADD_LETTER,
   SET_FINISHED,
   NEW_WORD,
-  REMOVE_LETTER
+  REMOVE_LETTER,
+  SET_SUGGESTIONS
 } from "./lineTypes";
 import { action } from "./lineAction";
 
@@ -20,7 +21,6 @@ const initialState = {
 };
 
 const lineReducer = (state = initialState, action: action) => {
-  console.log(state.suggestion, state.correct)
   switch (action.type) {
     case INCREMENT_ROW:
       if (state.row < 6) {
@@ -115,7 +115,7 @@ const lineReducer = (state = initialState, action: action) => {
             ...state,
             suggestion: [...state.suggestion.slice(0,1), state.suggestion[1].slice(0, -1), ...state.suggestion.slice(2)],
           }
-        case 3:
+        case 2:
           return {
             ...state,
             suggestion: [...state.suggestion.slice(0,2), state.suggestion[2].slice(0, -1), ...state.suggestion.slice(3)],
@@ -139,11 +139,17 @@ const lineReducer = (state = initialState, action: action) => {
           return state;
       }
     case SET_FINISHED:
-      console.log(action.payload)
+      console.log("Change");
       return {
           ...state,
           correct: action.payload === "true",
         }
+    case SET_SUGGESTIONS:
+      
+      return {
+        ...state,
+        suggestion: action.payloadList
+      }
       
     default:
       return state;

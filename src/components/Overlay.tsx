@@ -10,6 +10,7 @@ import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../redux/rootReducer";
 import { setHidden } from "../redux/statistics/statAction";
+import { getUserData } from "../utils/helpFunctions";
 Chart.register(...registerables);
 
 const Overlay = () => {
@@ -76,6 +77,15 @@ const Overlay = () => {
     </span>
   );
 
+  const statData = () => {
+    const data = getUserData();
+    const win = Math.round(data.games.filter(game => game.numberOfRows <= 5).length / data.games.length * 100)
+    const plays = data.games.length
+    return [plays, win]
+  }
+
+  const stat_data = statData();
+
   return (
     <>
       <div className={"overlay-back " + hidden}>
@@ -98,8 +108,8 @@ const Overlay = () => {
         </div>
         <div className="win-stats">
           <div className="win-numbers">
-            <p>12</p>
-            <p>100%</p>
+            <p>{stat_data[0]}</p>
+            <p>{stat_data[1].toString() + "%"}</p>
             <p>5</p>
             <p>2</p>
           </div>

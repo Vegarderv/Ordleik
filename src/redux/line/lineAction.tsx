@@ -8,11 +8,13 @@ import {
   SET_FINISHED,
   NEW_WORD,
   REMOVE_LETTER,
+  SET_SUGGESTIONS,
 } from "./lineTypes";
 
 export interface action {
   type: string;
   payload: string;
+  payloadList?: string[];
 }
 
 export const incrementRow = () => {
@@ -72,5 +74,13 @@ export const removeLetter = () => {
   return {
     type: REMOVE_LETTER,
     payload: "",
+  };
+};
+
+export const setSuggestions = (payloadString: string[]) => {
+  return {
+    type: SET_SUGGESTIONS,
+    payload: "",
+    payloadList: payloadString,
   };
 };

@@ -6,13 +6,13 @@ h3{
 .letter {
     border: 1px solid gray;
     border-radius: 15%;
-    width: 5vw;
+    width: 7.2vw;
     max-width: 28px;
     height: 8vh;
     max-width: 15vw;
 
     padding: 2px;
-    margin: 4px;
+    margin: 4px 2px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -29,7 +29,7 @@ h3{
 }
 
 .letter.special {
-    width: 13vw;
+    width: 15vw;
 }
 
 .letter-light {

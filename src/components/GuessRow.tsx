@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../redux/rootReducer";
 import { setFinished } from "../redux/line/lineAction";
 import { setHidden } from "../redux/statistics/statAction";
-import { arraysEqual } from "../utils/helpFunctions";
+import { arraysEqual, getUserData, userData } from "../utils/helpFunctions";
 
 interface GuessRowProps {
   rowNum: number;
@@ -17,6 +17,7 @@ const GuessRow = (props: GuessRowProps) => {
   const word = useSelector(
     (state: RootState) => state.line.suggestion[props.rowNum]
   );
+  const suggestions = useSelector((state: RootState) => state.line.suggestion)
   const row = useSelector((state: RootState) => state.line.row);
   const col = useSelector((state: RootState) => state.line.col);
   const letters = ["", "", "", "", ""];
@@ -49,20 +50,47 @@ const GuessRow = (props: GuessRowProps) => {
             1,
             "?"
           );
-        } else {
+        } else if (word != "") {
           colors[i] = "gray";
         }
       }
     }
   };
+
+  const saveNewData = (rows: number) => {
+    let data = localStorage.getItem("data");
+    const userData = getUserData();
+    const myObj = {
+      numberOfRows: rows.toString(),
+      date: new Date().toISOString(),
+      guesses: suggestions,
+    };
+    if (data === null) {
+      data = JSON.stringify({
+        games: [myObj],
+      });
+    }
+    if (userData.games.length > 0) {
+      if (userData.games.pop()?.date.toDateString() !== new Date().toDateString()) {
+        const parsed = JSON.parse(data);
+        console.log(parsed);
+        parsed.games.push(myObj);
+        data = JSON.stringify(parsed);
+        console.log(data);
+      }
+    }
+    localStorage.setItem("data", data);
+  };
+
   newLetter();
   setColors();
 
   if (arraysEqual(colors, ["green", "green", "green", "green", "green"])) {
-    console.log("Yoooo")
     dispatch(setHidden(""));
     dispatch(setFinished("true"));
-    
+    saveNewData(col);
+  } else if (col > 5) {
+    saveNewData(col);
   }
 
   return (
