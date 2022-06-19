@@ -15,10 +15,8 @@ const TopBar = () => {
   dispatch(newWord(word));
 
   const lastGame = getUserData().games.pop();
-  console.log(getUserData());
   if (lastGame?.date.toDateString() === new Date().toDateString()) {
     if (lastGame.guesses.includes(word.toUpperCase())) {
-      console.log(word, lastGame)
       dispatch(setHidden(""));
       dispatch(setFinished("true"));
     }

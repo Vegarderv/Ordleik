@@ -139,7 +139,6 @@ const lineReducer = (state = initialState, action: action) => {
           return state;
       }
     case SET_FINISHED:
-      console.log("Change");
       return {
           ...state,
           correct: action.payload === "true",

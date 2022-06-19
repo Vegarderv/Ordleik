@@ -39,7 +39,6 @@ export const getUserData = (): userData => {
       date: new Date(Date.parse(date)),
       guesses: guesses,
     }))
-    console.log(data);
     return data;
   }
   return { games: [] };

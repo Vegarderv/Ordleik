@@ -73,10 +73,8 @@ const GuessRow = (props: GuessRowProps) => {
     if (userData.games.length > 0) {
       if (userData.games.pop()?.date.toDateString() !== new Date().toDateString()) {
         const parsed = JSON.parse(data);
-        console.log(parsed);
         parsed.games.push(myObj);
         data = JSON.stringify(parsed);
-        console.log(data);
       }
     }
     localStorage.setItem("data", data);
