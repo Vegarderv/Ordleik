@@ -86,9 +86,9 @@ const GuessRow = (props: GuessRowProps) => {
   if (arraysEqual(colors, ["green", "green", "green", "green", "green"])) {
     dispatch(setHidden(""));
     dispatch(setFinished("true"));
-    saveNewData(col);
+    saveNewData(row);
   } else if (col > 5) {
-    saveNewData(col);
+    saveNewData(row);
   }
 
   return (

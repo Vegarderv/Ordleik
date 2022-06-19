@@ -11,124 +11,146 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../redux/rootReducer";
 import { setHidden } from "../redux/statistics/statAction";
 import { getUserData } from "../utils/helpFunctions";
+import { summary } from 'date-streaks';
 Chart.register(...registerables);
 
 const Overlay = () => {
-  const labels = ["1", "2", "3", "4", "5", "6"];
 
-  const data = {
-    labels: labels,
-    datasets: [
-      {
-        label: "My First dataset",
-        backgroundColor: "rgb(255, 99, 132)",
-        borderColor: "rgb(255, 255, 255)",
+  const labels = ["1", "2", "3", "4", "5", "6", "7+"];
 
-        data: [0, 2, 14, 3, 2, 2],
-      },
-    ],
-  };
-
-  const options = {
-    indexAxis: "y" as const,
-    scales: {
-      x: {
-        grid: {
-          color: "#444444",
-        },
-        ticks: {
-          color: "whitesmoke",
-        },
-      },
-      y: {
-        grid: {
-          color: "#444444",
-        },
-        ticks: {
-          color: "whitesmoke",
-        },
-      },
-    },
-    plugins: {
-      legend: {
-        display: false,
-      },
-    },
-  };
-
-  const dispatch = useDispatch();
-  const hidden = useSelector((state: RootState) => state.stat.hidden);
-
-  const timeToNewDay = () => {
-    /**
-     * Returns the next date
-     */
-    const d = new Date();
-    d.setDate(d.getDate() + 1);
-    d.setHours(0);
-    d.setMinutes(0);
-    d.setSeconds(0);
-    return d;
-  };
-
+  
   const renderer = ({ hours, minutes, seconds }: any) => (
     <span>
       {zeroPad(hours)}:{zeroPad(minutes)}:{zeroPad(seconds)}
     </span>
   );
 
-  const statData = () => {
-    const data = getUserData();
-    const win = Math.round(data.games.filter(game => game.numberOfRows <= 5).length / data.games.length * 100)
-    const plays = data.games.length
-    return [plays, win]
+  const getNumOfOccurences = (guesses: Array<number>) => {
+    const counts = [0, 0, 0, 0, 0, 0, 0]
+    guesses.forEach(guess => counts[guess - 1] += 1);
+    return counts;
   }
 
-  const stat_data = statData();
-
-  return (
-    <>
+  const statData = () => {
+    const data = getUserData();
+    console.log(data);
+    const win = Math.round(
+      (data.games.filter((game) => game.numberOfRows <= 5).length /
+      data.games.length) *
+      100
+      );
+      const plays = data.games.length;
+      const dates = data.games.filter(game => game.numberOfRows < 7).map((games) => games.date);
+      const streakData = summary({dates});
+      const occ = getNumOfOccurences(data.games.map(game => game.numberOfRows));
+      return [plays, win, streakData.longestStreak, streakData.currentStreak, occ];
+    };
+    
+    const statistics = statData();
+    
+    const data = {
+      labels: labels,
+      datasets: [
+        {
+          label: "My First dataset",
+          backgroundColor: "rgb(255, 99, 132)",
+          borderColor: "rgb(255, 255, 255)",
+  
+          data: statistics[4],
+        },
+      ],
+    };
+  
+    const options = {
+      indexAxis: "y" as const,
+      scales: {
+        x: {
+          grid: {
+            color: "#444444",
+          },
+          ticks: {
+            color: "whitesmoke",
+          },
+        },
+        y: {
+          grid: {
+            color: "#444444",
+          },
+          ticks: {
+            color: "whitesmoke",
+          },
+        },
+      },
+      plugins: {
+        legend: {
+          display: false,
+        },
+      },
+    };
+  
+    const dispatch = useDispatch();
+    const hidden = useSelector((state: RootState) => state.stat.hidden);
+  
+    const timeToNewDay = () => {
+      /**
+       * Returns the next date
+       */
+      const d = new Date();
+      d.setDate(d.getDate() + 1);
+      d.setHours(0);
+      d.setMinutes(0);
+      d.setSeconds(0);
+      return d;
+    };
+    
+    return (
+      <>
       <div className={"overlay-back " + hidden}>
-      <div className={"overlay"}>
-        <div className="top-overlay">
-          <Icon.X color="whitesmoke" size={30} onClick={() => {dispatch(setHidden("hidden"))}}></Icon.X>
-        </div>
-        <div className="stat-text">
-          <h5>Neste ordleik kommer om:</h5>
-        </div>
-        <div className="counter-div">
-          <Countdown
-            className="countdown-time"
-            date={timeToNewDay()}
-            renderer={renderer}
-          ></Countdown>
-        </div>
-        <div className="stat-text">
-          <h5>Statistikk:</h5>
-        </div>
-        <div className="win-stats">
-          <div className="win-numbers">
-            <p>{stat_data[0]}</p>
-            <p>{stat_data[1].toString() + "%"}</p>
-            <p>5</p>
-            <p>2</p>
+        <div className={"overlay"}>
+          <div className="top-overlay">
+            <Icon.X
+              color="whitesmoke"
+              size={30}
+              onClick={() => {
+                dispatch(setHidden("hidden"));
+              }}
+            ></Icon.X>
           </div>
-          <div className="win-labels">
-            <p>Spill spillt</p>
-            <p>Vinn%</p>
-            <p>Høyeste streak</p>
-            <p>Nåverende Streak</p>
+          <div className="stat-text">
+            <h5>Neste ordleik kommer om:</h5>
           </div>
+          <div className="counter-div">
+            <Countdown
+              className="countdown-time"
+              date={timeToNewDay()}
+              renderer={renderer}
+            ></Countdown>
+          </div>
+          <div className="stat-text">
+            <h5>Statistikk:</h5>
+          </div>
+          <div className="win-stats">
+            <div className="win-numbers">
+              <p>{statistics[0]}</p>
+              <p>{statistics[1].toString() + "%"}</p>
+              <p>{statistics[2].toString()}</p>
+              <p>{statistics[3].toString()}</p>
+            </div>
+            <div className="win-labels">
+              <p>Spill spillt</p>
+              <p>Vinn%</p>
+              <p>Høyeste streak</p>
+              <p>Nåverende Streak</p>
+            </div>
+          </div>
+          <div className="stat-text">
+            <h5>Distrubisjon av gjett</h5>
+          </div>
+          <Bar data={data} options={options} />
         </div>
-        <div className="stat-text">
-          <h5>Distrubisjon av gjett</h5>
-        </div>
-        <Bar data={data} options={options} />
-      </div>
-      <div className="behind-overlay" />
+        <div className="behind-overlay" />
       </div>
     </>
-      
   );
 };
 
