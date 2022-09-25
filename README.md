@@ -2,4 +2,4 @@
 
 Wordle, bare på norsk
 
-Test ut [Her](vegarderv.github.io/Ordleik/)
+Test ut [Her](https://vegarderv.github.io/Ordleik/)
