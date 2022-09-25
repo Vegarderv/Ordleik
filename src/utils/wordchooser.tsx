@@ -10,7 +10,7 @@ function getRandomLine(): string {
 
   // Divide Time with a year
   const d = new Date();
-  let days = Math.round(d.getTime() / day);
+  let days = Math.floor((d.getTime() - (2 * 60 * 60 * 1000)) / day);
   return songlist[(days * bigPrime) % numOfWords];
 }
 

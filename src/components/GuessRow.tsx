@@ -39,18 +39,24 @@ const GuessRow = (props: GuessRowProps) => {
     if (row - 1 === props.rowNum && col === 0) {
       let check_word = right_word.toUpperCase().split("");
       for (let i = 0; i < 5; i++) {
-        if (check_word.includes(letters[i])) {
-          if (check_word[i] === letters[i]) {
-            colors[i] = "green";
-          } else {
-            colors[i] = "yellow";
-          }
+        if (check_word[i] === letters[i]) {
+          colors[i] = "green";
+          check_word.splice(
+            i,
+            1,
+            "?"
+          );
+        }
+        }
+      for (let i = 0; i < 5; i++) {
+        if (check_word.includes(letters[i]) && check_word[i] !== letters[i] && check_word[i] !== "?") {
+          colors[i] = "yellow";
           check_word.splice(
             check_word.findIndex((a) => a === letters[i]),
             1,
             "?"
           );
-        } else if (word != "") {
+        } else if (colors[i] === "") {
           colors[i] = "gray";
         }
       }
@@ -86,12 +92,10 @@ const GuessRow = (props: GuessRowProps) => {
   if (arraysEqual(colors, ["green", "green", "green", "green", "green"])) {
     dispatch(setHidden(""));
     dispatch(setFinished("true"));
-    console.log(row);
     saveNewData(row);
   } else if (row > 5) {
     dispatch(setHidden(""));
     dispatch(setFinished("true"));
-    console.log(row)
     saveNewData(row + 1);
   }
 
